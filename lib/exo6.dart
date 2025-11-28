@@ -1,11 +1,19 @@
+import 'package:bootcamp1/exo1.dart';
+import 'package:bootcamp1/exo10.dart';
+import 'package:bootcamp1/exo11.dart';
+import 'package:bootcamp1/exo2.dart';
+import 'package:bootcamp1/exo3.dart';
+import 'package:bootcamp1/exo4.dart';
+import 'package:bootcamp1/exo5.dart';
+import 'package:bootcamp1/exo7.dart';
+import 'package:bootcamp1/exo8.dart';
 import 'package:flutter/material.dart';
-void main (){
-  runApp(MyApp6());
-}
+
 class Contact {
   final String name;
   final String number;
-  final  image;
+  // ignore: prefer_typing_uninitialized_variables
+  final image;
 
   const Contact ({required this.name, required this.number, required this.image});
 }
@@ -15,6 +23,7 @@ class MyApp6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Sixth Answer',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const ListOfContacts(),
@@ -24,6 +33,7 @@ class MyApp6 extends StatelessWidget {
 class ListOfContacts extends StatelessWidget {
   const ListOfContacts({super.key});
 
+  // ignore: non_constant_identifier_names
   final List<Contact> Contacts = const [
     Contact(name: "Nsimire", number: "0998766726", image: AssetImage("lib/image/cedro.jpg")),
     Contact(name: "Lydia", number: "0978938473", image: AssetImage("lib/image/3.png"),),
@@ -48,62 +58,62 @@ class ListOfContacts extends StatelessWidget {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: (){
-                Navigator.pushNamed(context, '/exo1');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const FirstApp()));
               },
             ),
             ListTile(
               leading: Icon(Icons.music_note_sharp),
               title: Text('Music'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo1O');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp10()));
               },
             ),ListTile(
               leading: Icon(Icons.pages),
               title: Text('Pages'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo11');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Final()));
               },
             ),ListTile(
               leading: Icon(Icons.person_outline_outlined),
               title: Text('Simple profile'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo2');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
               },
             ),ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('Profile advance'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo3');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp3()));
               },
             ),ListTile(
               leading: Icon(Icons.add),
               title: Text('Counter'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo4');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp4()));
               },
             ),ListTile(
               leading: Icon(Icons.book),
               title: Text('Proverbs'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo5');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp5()));
               },
             ),ListTile(
               leading: Icon(Icons.person),
               title: Text('Contacts'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo6');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp6()));
               },
             ),ListTile(
               leading: Icon(Icons.cloud),
               title: Text('Meteo'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo7');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp7()));
               },
             ),ListTile(
               leading: Icon(Icons.cabin),
               title: Text('Cases'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo8');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp8()));
               },
             ),
           ],
@@ -126,13 +136,13 @@ class ListOfContacts extends StatelessWidget {
       body: ListView.builder(
           itemCount: Contacts.length,
           itemBuilder: (context, index){
-            final Contact = Contacts[index];
+            final contact = Contacts[index];
             return Padding(padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                 child: Card(
                   elevation: 4,
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: Contact.image,
+                      backgroundImage: contact.image,
                       child: Text(
                         '',
                         style: TextStyle(
@@ -140,8 +150,8 @@ class ListOfContacts extends StatelessWidget {
                         ),
                       ),
                     ),
-                    title: Text(Contact.name),
-                    subtitle: Text(Contact.number),
+                    title: Text(contact.name),
+                    subtitle: Text(contact.number),
                     trailing: const Icon(Icons.phone),
                     onTap: (){
                       SnackBar(content: Text('Vous avez cliqué sur'),

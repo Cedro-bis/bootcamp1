@@ -3,9 +3,7 @@ import 'package:bootcamp1/exo10.dart';
 import 'package:bootcamp1/exo5.dart';
 import 'package:bootcamp1/exo6.dart';
 import 'package:flutter/material.dart';
-void main(){
-  runApp(Final());
-}
+
 class Final extends StatefulWidget {
   const Final({super.key});
 
@@ -38,9 +36,9 @@ class _FinalState extends State<Final> {
         ),
         bottomNavigationBar: BottomNavigationBar(items: [
           BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.black,), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person, color: Colors.black,), label: 'Profile'),
           BottomNavigationBarItem(icon: Icon(Icons.book, color: Colors.black,), label: 'Proverbs'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle, color: Colors.black,), label: 'Contacts')
+          BottomNavigationBarItem(icon: Icon(Icons.person, color: Colors.black,), label: 'Contacts'),
+          BottomNavigationBarItem(icon: Icon(Icons.music_note_outlined, color: Colors.black,), label: 'Music')
         ],
         currentIndex: _selectedIndex,
           onTap: updateIndex,

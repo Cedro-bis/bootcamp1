@@ -1,8 +1,12 @@
+import 'package:bootcamp1/exo1.dart';
+import 'package:bootcamp1/exo11.dart';
+import 'package:bootcamp1/exo2.dart';
+import 'package:bootcamp1/exo4.dart';
+import 'package:bootcamp1/exo5.dart';
+import 'package:bootcamp1/exo6.dart';
+import 'package:bootcamp1/exo7.dart';
+import 'package:bootcamp1/exo8.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp10());
-}
 
 class MyApp10 extends StatelessWidget {
   const MyApp10 ({super.key});
@@ -10,6 +14,7 @@ class MyApp10 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Spotify Player Clone',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF121212),
@@ -94,62 +99,62 @@ class MusicPlayerScreen extends StatelessWidget {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: (){
-                Navigator.pushNamed(context, '/exo1');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const FirstApp()));
               },
             ),
             ListTile(
               leading: Icon(Icons.music_note_sharp),
               title: Text('Music'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo1O');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp10()));
               },
             ),ListTile(
               leading: Icon(Icons.pages),
               title: Text('Pages'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo11');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Final()));
               },
             ),ListTile(
               leading: Icon(Icons.person_outline_outlined),
               title: Text('Simple profile'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo2');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
               },
             ),ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('Profile advance'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo3');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
               },
             ),ListTile(
               leading: Icon(Icons.add),
               title: Text('Counter'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo4');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp4()));
               },
             ),ListTile(
               leading: Icon(Icons.book),
               title: Text('Proverbs'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo5');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp5()));
               },
             ),ListTile(
               leading: Icon(Icons.person),
               title: Text('Contacts'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo6');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp6()));
               },
             ),ListTile(
               leading: Icon(Icons.cloud),
               title: Text('Meteo'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo7');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp7()));
               },
             ),ListTile(
               leading: Icon(Icons.cabin),
               title: Text('Cases'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo8');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp8()));
               },
             ),
           ],

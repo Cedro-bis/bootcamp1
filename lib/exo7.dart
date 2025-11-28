@@ -1,13 +1,21 @@
+import 'package:bootcamp1/exo1.dart';
+import 'package:bootcamp1/exo10.dart';
+import 'package:bootcamp1/exo11.dart';
+import 'package:bootcamp1/exo2.dart';
+import 'package:bootcamp1/exo3.dart';
+import 'package:bootcamp1/exo4.dart';
+import 'package:bootcamp1/exo5.dart';
+import 'package:bootcamp1/exo6.dart';
+import 'package:bootcamp1/exo8.dart';
 import 'package:flutter/material.dart';
-void main (){
-  runApp(MyApp7());
-}
+
 class MyApp7 extends StatelessWidget {
   const MyApp7({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Seventh Answer',
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: false,),
       home: const Meteo(),
@@ -23,7 +31,7 @@ class Meteo extends StatefulWidget {
 
 class _MeteoState extends State<Meteo> {
   int _selectIndex = 0;
-  static const List<Widget> _Options = <Widget>[
+  static const List<Widget> _options = <Widget>[
     WeatherDetails(),
     Center(child: Text('Présivions')),
     Center(child: Text('Paramètre')),
@@ -46,62 +54,62 @@ class _MeteoState extends State<Meteo> {
               leading: Icon(Icons.home),
               title: Text('Home'),
               onTap: (){
-                Navigator.pushNamed(context, '/exo1');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const FirstApp()));
               },
             ),
             ListTile(
               leading: Icon(Icons.music_note_sharp),
               title: Text('Music'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo1O');
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp10()));
               },
             ),ListTile(
               leading: Icon(Icons.pages),
               title: Text('Pages'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo11');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Final()));
               },
             ),ListTile(
               leading: Icon(Icons.person_outline_outlined),
               title: Text('Simple profile'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo2');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
               },
             ),ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('Profile advance'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo3');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp3()));
               },
             ),ListTile(
               leading: Icon(Icons.add),
               title: Text('Counter'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo4');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp4()));
               },
             ),ListTile(
               leading: Icon(Icons.book),
               title: Text('Proverbs'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo5');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp5()));
               },
             ),ListTile(
               leading: Icon(Icons.person),
               title: Text('Contacts'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo6');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp6()));
               },
             ),ListTile(
               leading: Icon(Icons.cloud),
               title: Text('Meteo'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo7');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp7()));
               },
             ),ListTile(
               leading: Icon(Icons.cabin),
               title: Text('Cases'),
               onTap: (){
-                Navigator.of(context).pushNamed('/exo8');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp8()));
               },
             ),
           ],
@@ -121,7 +129,7 @@ class _MeteoState extends State<Meteo> {
 
         ],
       ),
-      body: _Options.elementAt(_selectIndex),
+      body: _options.elementAt(_selectIndex),
       bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.cloud), label: 'Aujourd\'hui',),
         BottomNavigationBarItem(icon: Icon(Icons.next_plan), label: 'prevision'),
