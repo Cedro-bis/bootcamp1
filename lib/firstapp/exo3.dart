@@ -1,12 +1,12 @@
-import 'package:bootcamp1/exo1.dart';
-import 'package:bootcamp1/exo10.dart';
-import 'package:bootcamp1/exo11.dart';
-import 'package:bootcamp1/exo2.dart';
-import 'package:bootcamp1/exo4.dart';
-import 'package:bootcamp1/exo5.dart';
-import 'package:bootcamp1/exo6.dart';
-import 'package:bootcamp1/exo7.dart';
-import 'package:bootcamp1/exo8.dart';
+import 'package:bootcamp1/firstapp/exo1.dart';
+import 'package:bootcamp1/firstapp/exo10.dart';
+import 'package:bootcamp1/firstapp/exo11.dart';
+import 'package:bootcamp1/firstapp/exo2.dart';
+import 'package:bootcamp1/firstapp/exo4.dart';
+import 'package:bootcamp1/firstapp/exo5.dart';
+import 'package:bootcamp1/firstapp/exo6.dart';
+import 'package:bootcamp1/firstapp/exo7.dart';
+import 'package:bootcamp1/firstapp/exo8.dart';
 import 'package:flutter/material.dart';
 
 class MyApp3 extends StatelessWidget {

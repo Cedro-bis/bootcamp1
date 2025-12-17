@@ -1,12 +1,12 @@
-import 'package:bootcamp1/exo1.dart';
-import 'package:bootcamp1/exo10.dart';
-import 'package:bootcamp1/exo11.dart';
-import 'package:bootcamp1/exo2.dart';
-import 'package:bootcamp1/exo3.dart';
-import 'package:bootcamp1/exo4.dart';
-import 'package:bootcamp1/exo5.dart';
-import 'package:bootcamp1/exo7.dart';
-import 'package:bootcamp1/exo8.dart';
+import 'package:bootcamp1/firstapp/exo1.dart';
+import 'package:bootcamp1/firstapp/exo10.dart';
+import 'package:bootcamp1/firstapp/exo11.dart';
+import 'package:bootcamp1/firstapp/exo2.dart';
+import 'package:bootcamp1/firstapp/exo3.dart';
+import 'package:bootcamp1/firstapp/exo4.dart';
+import 'package:bootcamp1/firstapp/exo5.dart';
+import 'package:bootcamp1/firstapp/exo7.dart';
+import 'package:bootcamp1/firstapp/exo8.dart';
 import 'package:flutter/material.dart';
 
 class Contact {
@@ -32,8 +32,6 @@ class MyApp6 extends StatelessWidget {
 }
 class ListOfContacts extends StatelessWidget {
   const ListOfContacts({super.key});
-
-  // ignore: non_constant_identifier_names
   final List<Contact> Contacts = const [
     Contact(name: "Nsimire", number: "0998766726", image: AssetImage("lib/image/cedro.jpg")),
     Contact(name: "Lydia", number: "0978938473", image: AssetImage("lib/image/3.png"),),
@@ -138,24 +136,30 @@ class ListOfContacts extends StatelessWidget {
           itemBuilder: (context, index){
             final contact = Contacts[index];
             return Padding(padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                child: Card(
-                  elevation: 4,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: contact.image,
-                      child: Text(
-                        '',
-                        style: TextStyle(
-                          color: Colors.teal.shade700,fontWeight: FontWeight.bold,
-                        ),
+            
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> FirstApp()));
+                  },
+                  child: Card(
+                    elevation: 4,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: contact.image,
+                        // child: Text(
+                        //   '',
+                        //   style: TextStyle(
+                        //     color: Colors.teal.shade700,fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                       ),
+                      title: Text(contact.name),
+                      subtitle: Text(contact.number),
+                      trailing: const Icon(Icons.phone, color: Colors.green,),
+                      onTap: (){
+                        SnackBar(content: Text('Vous avez cliqué sur'),
+                          duration: Duration(seconds: 3),);},
                     ),
-                    title: Text(contact.name),
-                    subtitle: Text(contact.number),
-                    trailing: const Icon(Icons.phone),
-                    onTap: (){
-                      SnackBar(content: Text('Vous avez cliqué sur'),
-                        duration: Duration(seconds: 3),);},
                   ),
                 ),
             );

@@ -1,55 +1,59 @@
-import 'package:bootcamp1/exo1.dart';
-import 'package:bootcamp1/exo10.dart';
-import 'package:bootcamp1/exo11.dart';
-import 'package:bootcamp1/exo2.dart';
-import 'package:bootcamp1/exo3.dart';
-import 'package:bootcamp1/exo4.dart';
-import 'package:bootcamp1/exo5.dart';
-import 'package:bootcamp1/exo6.dart';
-import 'package:bootcamp1/exo7.dart';
+import 'package:bootcamp1/firstapp/exo1.dart';
+import 'package:bootcamp1/firstapp/exo10.dart';
+import 'package:bootcamp1/firstapp/exo11.dart';
+import 'package:bootcamp1/firstapp/exo2.dart';
+import 'package:bootcamp1/firstapp/exo3.dart';
+import 'package:bootcamp1/firstapp/exo4.dart';
+import 'package:bootcamp1/firstapp/exo6.dart';
+import 'package:bootcamp1/firstapp/exo7.dart';
+import 'package:bootcamp1/firstapp/exo8.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-class MyApp8 extends StatelessWidget {
-  const MyApp8({super.key});
+class MyApp5 extends StatelessWidget {
+  const MyApp5({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Layout Responsive',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: const ResponsiveLayoutScreen(),
+      title: 'Citation random',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const Citations(),
     );
   }
 }
+class Citations extends StatefulWidget {
+  const Citations({super.key});
 
-class ResponsiveLayoutScreen extends StatelessWidget {
-  const ResponsiveLayoutScreen({super.key});
+  @override
+  State<Citations> createState() => _CitationsState();
+}
 
-
-  Widget _buildColoredBox(Color color, String text) {
-    return Expanded(
-      child: Container(
-        height: 150,
-        margin: const EdgeInsets.all(8.0),
-        color: color,
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
-          ),
-        ),
-      ),
-    );
+class _CitationsState extends State<Citations> {
+  final List<String> _migani = [
+    "Akaduma kahabire halibwi, kaderha mpu habibwi",
+    "Omulume ajirwa n'owabo",
+    "Orhamanyiri omunyiampire ye omuheka ko izulu",
+    "Iragi lyo likuhu aha bwenge",
+    "Irenge ly'ecinganyi busha lifa",
+    "Rugendabanga burhaba boba",
+    "Orhabiyishi ye Obinia kwo",
+    "Omwana murhengu arhalya okuntada y'omugikulu",
+    "Ecinyabuguma cociyir'engwi",
+    "oyimangirhwe na wangui, adoma agashongwire",
+  ];
+  String _citation = "Click for citation.";
+  final Random _random = Random();
+  void _newMugani (){
+    setState(() {
+      int randomIndex = _random.nextInt(_migani.length);
+      _citation = _migani[randomIndex];
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final orientation = MediaQuery.of(context).orientation;
-    final isLandscape = orientation == Orientation.landscape;
-
     return Scaffold(
       drawer: Drawer(
         backgroundColor: Colors.blue.shade100,
@@ -123,27 +127,39 @@ class ResponsiveLayoutScreen extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        title: const Text('Eighth Answer'),
-        backgroundColor: Colors.green,
+        shadowColor: Colors.green,
+        backgroundColor: Colors.blue.shade200,
+        title: Center(child: const Text('Fifth Answer')),
+        actions: [
+          IconButton(onPressed: (){}, icon: Icon(Icons.download),color: Colors.black,)
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: isLandscape
-            ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildColoredBox(Colors.blue, 'First box (Paysage)'),
-            _buildColoredBox(Colors.red, 'Second box (Paysage)'),
-            _buildColoredBox(Colors.purple, 'Third box (Paysage)'),
-          ],
-        )
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildColoredBox(Colors.blue, 'First box (Portrait)'),
-            _buildColoredBox(Colors.red, 'Second box (Portrait)'),
-            _buildColoredBox(Colors.purple, 'Third box (Portrait)'),
-          ],
+      body: Center(
+        child: Center(
+          child: Padding(padding: const EdgeInsets.all(24),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  _citation,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontStyle: FontStyle.italic,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+              TextButton(onPressed: _newMugani,
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white, backgroundColor: Colors.blueGrey,
+                  ),
+                  child: const Text('New citation', style: TextStyle(fontSize: 18),)),
+            ],
+          ),
+          ),
         ),
       ),
     );

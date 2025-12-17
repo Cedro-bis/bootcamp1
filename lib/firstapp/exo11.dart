@@ -1,7 +1,7 @@
-import 'package:bootcamp1/exo1.dart';
-import 'package:bootcamp1/exo10.dart';
-import 'package:bootcamp1/exo5.dart';
-import 'package:bootcamp1/exo6.dart';
+import 'package:bootcamp1/firstapp/exo1.dart';
+import 'package:bootcamp1/firstapp/exo10.dart';
+import 'package:bootcamp1/firstapp/exo5.dart';
+import 'package:bootcamp1/firstapp/exo6.dart';
 import 'package:flutter/material.dart';
 
 class Final extends StatefulWidget {
