@@ -8,6 +8,7 @@ import 'package:bootcamp1/firstapp/exo6.dart';
 import 'package:bootcamp1/firstapp/exo7.dart';
 import 'package:bootcamp1/firstapp/exo8.dart';
 import 'package:bootcamp1/pages/contact_page_advanced.dart';
+import 'package:bootcamp1/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class FirstApp extends StatefulWidget {
@@ -132,7 +133,7 @@ class _FirstAppState extends State<FirstApp> {
               ),
               ListTile(
                 leading: Icon(Icons.people_outline, color: Colors.black),
-                title: Text('Cases'),
+                title: Text('Contacts advanced'),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -188,7 +189,15 @@ class _FirstAppState extends State<FirstApp> {
             ),
           ),
         ),
-        //floatingActionButton: Icon(Icons.message),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage()),
+            );
+          },
+          child: Icon(Icons.home),
+        ),
       ),
     );
   }

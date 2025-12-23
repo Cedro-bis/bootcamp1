@@ -1,4 +1,6 @@
 import 'package:bootcamp1/pages/contacts_details.dart';
+import 'package:bootcamp1/pages/meteo_pages.dart';
+import 'package:bootcamp1/pages/text_field_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bootcamp1/data/data.dart';
@@ -68,6 +70,24 @@ class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
             ),
           ),
         ),
+        actions: [
+          TextButton(
+            style: ButtonStyle(
+              elevation: WidgetStatePropertyAll(8),
+              backgroundColor: WidgetStatePropertyAll(Colors.blue.shade100),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TextFieldPage()),
+              );
+            },
+            child: Text(
+              "Sign in",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -75,22 +95,25 @@ class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           spacing: 16.0,
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.blue,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 8,
-                children: [
-                  Icon(Icons.person_add_alt_1_outlined),
-                  Text(
-                    "Add New contact",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.blue,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 8,
+                  children: [
+                    Icon(Icons.person_add_alt_1_outlined),
+                    Text(
+                      "Add New contact",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -138,6 +161,7 @@ class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
+                                  spacing: 8,
                                   children: [
                                     CircleAvatar(
                                       backgroundColor: Colors.grey.shade200,
@@ -177,7 +201,7 @@ class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
                                     ),
                                     SizedBox(width: 8),
                                     Icon(
-                                      Icons.phone_outlined,
+                                      Icons.mail_outline,
                                       color: Colors.blue,
                                       size: 18,
                                     ),
@@ -210,80 +234,95 @@ class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
                     Column(
                       children: List.generate(_filtered.length, (index) {
                         final currentContact = _filtered[index];
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.grey.shade500,
-                              width: 0.5,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    child: Text(currentContact.abreviationName),
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                        currentContact.completeName,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
-                                      Text(
-                                        currentContact.number,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
-                                      Text(
-                                        currentContact.isFavotite
-                                            ? currentContact.email
-                                            : "",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(width: 12),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.phone_outlined,
-                                        color: Colors.green,
-                                      ),
-                                      SizedBox(width: 8),
-                                      Icon(
-                                        Icons.mail_outline,
-                                        color: Colors.blue,
-                                      ),
-                                      SizedBox(width: 8),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Icon(
-                                          currentContact.isFavotite
-                                              ? Icons.star_rounded
-                                              : Icons.star_outline_outlined,
-                                          color: Colors.red,
-                                          size: 18,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ContactsDetails(
+                                  currenContact: _filtered[index],
+                                ),
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 8),
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.grey.shade500,
+                                width: 0.5,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  spacing: 12,
+                                  children: [
+                                    CircleAvatar(
+                                      child: Text(
+                                        currentContact.abreviationName,
+                                      ),
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          currentContact.completeName,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
+                                        Text(
+                                          currentContact.number,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
+                                        Text(
+                                          currentContact.isFavotite
+                                              ? currentContact.email
+                                              : "",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(width: 12),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.phone_outlined,
+                                          color: Colors.green,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Icon(
+                                          Icons.mail_outline,
+                                          color: Colors.blue,
+                                        ),
+                                        SizedBox(width: 8),
+                                        GestureDetector(
+                                          onTap: () {},
+                                          child: Icon(
+                                            currentContact.isFavotite
+                                                ? Icons.star_rounded
+                                                : Icons.star_outline_outlined,
+                                            color: Colors.red,
+                                            size: 18,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       }),
@@ -294,6 +333,15 @@ class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MeteoPages()),
+          );
+        },
+        child: Icon(Icons.cloud),
       ),
     );
   }
