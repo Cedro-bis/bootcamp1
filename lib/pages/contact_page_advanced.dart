@@ -1,9 +1,9 @@
-import 'package:bootcamp1/pages/contacts_details.dart';
-import 'package:bootcamp1/pages/meteo_pages.dart';
-import 'package:bootcamp1/pages/text_field_page.dart';
-import 'package:flutter/material.dart';
-
 import 'package:bootcamp1/data/data.dart';
+import 'package:bootcamp1/pages/contacts_details.dart';
+import 'package:bootcamp1/pages/update_contacts.dart';
+import 'package:bootcamp1/services/contacts_services.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ContactPageAdvanced extends StatefulWidget {
   const ContactPageAdvanced({super.key});
@@ -13,335 +13,282 @@ class ContactPageAdvanced extends StatefulWidget {
 }
 
 class _ContactPageAdvancedState extends State<ContactPageAdvanced> {
-  List<ContactModel> _filtered = localConctasData;
-  @override
-  void initState() {
-    super.initState();
-    _filtered = localConctasData;
-  }
-
-  void _updateQuery(String q) {
-    final query = q.trim().toLowerCase();
-    setState(() {
-      if (query.isEmpty) {
-        _filtered = localConctasData;
-      } else {
-        _filtered = localConctasData.where((c) {
-          final full = c.completeName.toLowerCase();
-          final phone = c.number.toLowerCase();
-          final mail = c.email.toLowerCase();
-          return full.contains(query) ||
-              phone.contains(query) ||
-              mail.contains(query);
-        }).toList();
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final favoriteContacts = _filtered
-        .where((contact) => contact.isFavotite)
-        .toList();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Contacts'),
-        bottom: PreferredSize(
-          preferredSize: Size(double.infinity, 80),
-          child: Container(
-            height: 75,
-            color: Colors.white,
-            padding: const EdgeInsets.all(16.0),
-            child: SearchBar(
-              onChanged: _updateQuery,
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              padding: WidgetStatePropertyAll(
-                EdgeInsets.symmetric(horizontal: 12),
-              ),
-              elevation: WidgetStatePropertyAll(0),
-              leading: Icon(Icons.search_outlined, color: Colors.green),
-              backgroundColor: WidgetStatePropertyAll(Colors.grey),
-              hintText: "Search contacts",
-              hintStyle: WidgetStatePropertyAll(
-                TextStyle(color: Colors.grey.shade600),
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          TextButton(
-            style: ButtonStyle(
-              elevation: WidgetStatePropertyAll(8),
-              backgroundColor: WidgetStatePropertyAll(Colors.blue.shade100),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TextFieldPage()),
+      appBar: AppBar(title: Text('Contacts'), elevation: 12),
+      body: FutureBuilder<List<ContactModel>>(
+        future: ContactsDatabase.instance.readData(),
+        builder: (ctx, snp) {
+          if (!snp.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snp.data!.isEmpty) {
+            return Center(child: Text('Liste vide'));
+          }
+          return ListView.builder(
+            itemCount: snp.data!.length,
+            itemBuilder: (context, idx) {
+              final liste = snp.data![idx];
+              return GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text('Que voulez-vous faire?'),
+                      content: Row(
+                        children: [
+                          Expanded(
+                            child: IconButton(
+                              icon: Icon(Icons.call),
+                              onPressed: () =>
+                                  ContactsServices.makeCall(liste.number),
+                            ),
+                          ),
+                          Expanded(
+                            child: IconButton(
+                              icon: Icon(Icons.mail_outline),
+                              onPressed: () =>
+                                  ContactsServices.makeSms(liste.number),
+                            ),
+                          ),
+                          Expanded(
+                            child: IconButton(
+                              icon: Icon(
+                                FontAwesomeIcons.whatsapp,
+                                color: Colors.green,
+                              ),
+                              onPressed: () =>
+                                  ContactsServices.openWhatsApp(liste.number),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                child: Card(
+                  child: ListTile(
+                    leading: InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text('Profil'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CircleAvatar(
+                                  radius: 70,
+                                  child: Text(
+                                    liste.abreviationName,
+                                    style: TextStyle(
+                                      fontSize: 70,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(liste.completeName),
+                                SizedBox(height: 5),
+                                Text(liste.number),
+                                SizedBox(height: 15),
+                                Row(
+                                  children: [
+                                    Expanded(child: Icon(Icons.call_outlined)),
+                                    Expanded(child: Icon(Icons.mail)),
+                                    Expanded(
+                                      child: Icon(Icons.video_call_outlined),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      child: CircleAvatar(child: Text(liste.abreviationName)),
+                    ),
+                    title: Text(liste.completeName),
+                    subtitle: Text(liste.number),
+                    trailing: PopupMenuButton(
+                      icon: Icon(Icons.more_vert),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      onSelected: (c) {
+                        print('Vous avez $c un contact');
+                      },
+
+                      itemBuilder: (ctx) => [
+                        PopupMenuItem(
+                          value: 'Détail',
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (builder) => ContactsDetails(
+                                    currenContact: snp.data![idx],
+                                  ),
+                                ),
+                              );
+                            },
+                            leading: Icon(Icons.person),
+                            title: Text('Détails'),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 'Modifié',
+                          child: ListTile(
+                            onTap: () async {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (builder) =>
+                                      UpdateContacts(contactModel: liste),
+                                ),
+                              );
+                            },
+                            leading: Icon(Icons.edit),
+                            title: Text('Modifier'),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 'Supprimé',
+                          child: GestureDetector(
+                            onTap: () async {
+                              await ContactsDatabase.instance.deleteData(
+                                liste.id,
+                              );
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (builder) => ContactPageAdvanced(),
+                                ),
+                                (predicate) => false,
+                              );
+                            },
+                            child: ListTile(
+                              leading: Icon(Icons.delete),
+                              title: Text('Supprimer'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               );
             },
-            child: Text(
-              "Sign in",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: 16.0,
-          children: [
-            InkWell(
-              onTap: () {},
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.blue,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 8,
-                  children: [
-                    Icon(Icons.person_add_alt_1_outlined),
-                    Text(
-                      "Add New contact",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  if (favoriteContacts.isNotEmpty) ...[
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star_rounded,
-                          color: const Color.fromARGB(255, 255, 7, 7),
-                        ),
-                        SizedBox(width: 8),
-                        Text('Favorite'),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Column(
-                      children: List.generate(favoriteContacts.length, (index) {
-                        final currentContact = favoriteContacts[index];
-
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ContactsDetails(
-                                  currenContact: favoriteContacts[index],
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 8),
-                            padding: const EdgeInsets.all(12.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.grey.shade200,
-                                width: 0.5,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  spacing: 8,
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: Colors.grey.shade200,
-                                      foregroundColor: Colors.black54,
-                                      child: Text(
-                                        currentContact.abreviationName,
-                                      ),
-                                    ),
-                                    SizedBox(height: 12),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(currentContact.completeName),
-                                        Text(
-                                          currentContact.number,
-                                          style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                        Text(
-                                          currentContact.isFavotite
-                                              ? currentContact.email
-                                              : "",
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.phone_outlined,
-                                      color: Colors.green,
-                                      size: 18,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Icon(
-                                      Icons.mail_outline,
-                                      color: Colors.blue,
-                                      size: 18,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Icon(
-                                      currentContact.isFavotite
-                                          ? Icons.star_rounded
-                                          : Icons.star_outline,
-                                      color: Colors.red,
-                                      size: 18,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.people_alt_outlined),
-                        SizedBox(width: 8),
-                        Text('All contacts (${_filtered.length})'),
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Column(
-                      children: List.generate(_filtered.length, (index) {
-                        final currentContact = _filtered[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ContactsDetails(
-                                  currenContact: _filtered[index],
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 8),
-                            padding: const EdgeInsets.all(12.0),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.grey.shade500,
-                                width: 0.5,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  spacing: 12,
-                                  children: [
-                                    CircleAvatar(
-                                      child: Text(
-                                        currentContact.abreviationName,
-                                      ),
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text(
-                                          currentContact.completeName,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey.shade600,
-                                          ),
-                                        ),
-                                        Text(
-                                          currentContact.number,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade600,
-                                          ),
-                                        ),
-                                        Text(
-                                          currentContact.isFavotite
-                                              ? currentContact.email
-                                              : "",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: 12),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.phone_outlined,
-                                          color: Colors.green,
-                                        ),
-                                        SizedBox(width: 8),
-                                        Icon(
-                                          Icons.mail_outline,
-                                          color: Colors.blue,
-                                        ),
-                                        SizedBox(width: 8),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Icon(
-                                            currentContact.isFavotite
-                                                ? Icons.star_rounded
-                                                : Icons.star_outline_outlined,
-                                            color: Colors.red,
-                                            size: 18,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MeteoPages()),
-          );
+          _showForm();
         },
-        child: Icon(Icons.cloud),
+        child: Icon(Icons.dialpad),
+      ),
+    );
+  }
+
+  void _showForm() {
+    TextEditingController name = TextEditingController();
+    TextEditingController surname = TextEditingController();
+    TextEditingController number = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController adress = TextEditingController();
+    TextEditingController company = TextEditingController();
+    TextEditingController birthday = TextEditingController();
+    bool isFavorite = false;
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        scrollable: true,
+        title: Text('Nouveau contact'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: surname,
+              decoration: InputDecoration(labelText: 'Prénom'),
+            ),
+            SizedBox(height: 4),
+            TextField(
+              controller: name,
+              decoration: InputDecoration(labelText: 'Nom'),
+            ),
+            SizedBox(height: 4),
+            TextField(
+              controller: number,
+              decoration: InputDecoration(labelText: 'Numéro'),
+            ),
+            SizedBox(height: 4),
+            TextField(
+              controller: email,
+              decoration: InputDecoration(labelText: 'E-mail'),
+            ),
+            SizedBox(height: 4),
+            TextField(
+              controller: adress,
+              decoration: InputDecoration(labelText: 'Adresse'),
+            ),
+            SizedBox(height: 4),
+            TextField(
+              controller: company,
+              decoration: InputDecoration(labelText: 'Entreprise'),
+            ),
+            SizedBox(height: 4),
+            TextField(
+              controller: birthday,
+              decoration: InputDecoration(labelText: "Date d'anniversaire"),
+            ),
+            SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              spacing: 8,
+              children: [
+                Checkbox(
+                  value: isFavorite,
+                  onChanged: (c) => setState(() {
+                    isFavorite = c ?? true;
+                  }),
+                ),
+                Text('Favoris ?'),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Annuler'),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              await ContactsDatabase.instance.createData(
+                ContactModel(
+                  id: "0",
+                  name: name.text,
+                  surname: surname.text,
+                  number: number.text,
+                  email: email.text,
+                  adress: adress.text,
+                  company: company.text,
+                  birthday: birthday.text,
+                ),
+              );
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (ctx) => ContactPageAdvanced()),
+                (predicate) => false,
+              );
+            },
+            child: Text('Ajouter'),
+          ),
+        ],
       ),
     );
   }

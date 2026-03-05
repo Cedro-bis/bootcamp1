@@ -1,12 +1,4 @@
-import 'package:bootcamp1/firstapp/exo1.dart';
-import 'package:bootcamp1/firstapp/exo10.dart';
-import 'package:bootcamp1/firstapp/exo11.dart';
-import 'package:bootcamp1/firstapp/exo2.dart';
-import 'package:bootcamp1/firstapp/exo3.dart';
-import 'package:bootcamp1/firstapp/exo4.dart';
-import 'package:bootcamp1/firstapp/exo5.dart';
-import 'package:bootcamp1/firstapp/exo6.dart';
-import 'package:bootcamp1/firstapp/exo7.dart';
+import 'all_exos.dart';
 import 'package:flutter/material.dart';
 
 class MyApp8 extends StatelessWidget {
@@ -17,9 +9,7 @@ class MyApp8 extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Layout Responsive',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme: ThemeData(primarySwatch: Colors.green),
       home: const ResponsiveLayoutScreen(),
     );
   }
@@ -27,7 +17,6 @@ class MyApp8 extends StatelessWidget {
 
 class ResponsiveLayoutScreen extends StatelessWidget {
   const ResponsiveLayoutScreen({super.key});
-
 
   Widget _buildColoredBox(Color color, String text) {
     return Expanded(
@@ -55,71 +44,108 @@ class ResponsiveLayoutScreen extends StatelessWidget {
         backgroundColor: Colors.blue.shade100,
         child: ListView(
           children: [
-            DrawerHeader(child: Icon(Icons.account_circle,size: 100,)),
+            DrawerHeader(child: Icon(Icons.account_circle, size: 100)),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const FirstApp()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FirstApp()),
+                );
               },
             ),
             ListTile(
               leading: Icon(Icons.music_note_sharp),
               title: Text('Music'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp10()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp10()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.pages),
               title: Text('Pages'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> Final()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Final()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.person_outline_outlined),
               title: Text('Simple profile'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp2()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('Profile advance'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp3()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp3()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.add),
               title: Text('Counter'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp4()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp4()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.book),
               title: Text('Proverbs'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp5()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp5()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.person),
               title: Text('Contacts'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp6()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp6()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.cloud),
               title: Text('Meteo'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp7()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp7()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.cabin),
               title: Text('Cases'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp8()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp8()),
+                );
               },
             ),
           ],
-
         ),
       ),
       appBar: AppBar(
@@ -130,21 +156,21 @@ class ResponsiveLayoutScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: isLandscape
             ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildColoredBox(Colors.blue, 'First box (Paysage)'),
-            _buildColoredBox(Colors.red, 'Second box (Paysage)'),
-            _buildColoredBox(Colors.purple, 'Third box (Paysage)'),
-          ],
-        )
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buildColoredBox(Colors.blue, 'First box (Paysage)'),
+                  _buildColoredBox(Colors.red, 'Second box (Paysage)'),
+                  _buildColoredBox(Colors.purple, 'Third box (Paysage)'),
+                ],
+              )
             : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildColoredBox(Colors.blue, 'First box (Portrait)'),
-            _buildColoredBox(Colors.red, 'Second box (Portrait)'),
-            _buildColoredBox(Colors.purple, 'Third box (Portrait)'),
-          ],
-        ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buildColoredBox(Colors.blue, 'First box (Portrait)'),
+                  _buildColoredBox(Colors.red, 'Second box (Portrait)'),
+                  _buildColoredBox(Colors.purple, 'Third box (Portrait)'),
+                ],
+              ),
       ),
     );
   }

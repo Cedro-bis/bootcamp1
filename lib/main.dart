@@ -1,8 +1,10 @@
 import 'package:bootcamp1/firstapp/exo1.dart';
 import 'package:flutter/material.dart';
-void main(){
+
+void main() {
   runApp(MyApp9());
 }
+
 class MyApp9 extends StatelessWidget {
   const MyApp9({super.key});
 
@@ -10,6 +12,8 @@ class MyApp9 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(colorSchemeSeed: Colors.blue),
+
       home: FirstApp(),
     );
   }

@@ -1,14 +1,7 @@
-import 'package:bootcamp1/firstapp/exo10.dart';
-import 'package:bootcamp1/firstapp/exo11.dart';
-import 'package:bootcamp1/firstapp/exo2.dart';
-import 'package:bootcamp1/firstapp/exo3.dart';
-import 'package:bootcamp1/firstapp/exo4.dart';
-import 'package:bootcamp1/firstapp/exo5.dart';
-import 'package:bootcamp1/firstapp/exo6.dart';
-import 'package:bootcamp1/firstapp/exo7.dart';
-import 'package:bootcamp1/firstapp/exo8.dart';
 import 'package:bootcamp1/pages/contact_page_advanced.dart';
-import 'package:bootcamp1/pages/home_page.dart';
+import 'package:bootcamp1/pages/entree.dart';
+
+import 'all_exos.dart';
 import 'package:flutter/material.dart';
 
 class FirstApp extends StatefulWidget {
@@ -193,7 +186,7 @@ class _FirstAppState extends State<FirstApp> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => Entree()),
             );
           },
           child: Icon(Icons.home),

@@ -1,16 +1,14 @@
-import 'package:bootcamp1/firstapp/exo1.dart';
-import 'package:bootcamp1/firstapp/exo11.dart';
-import 'package:bootcamp1/firstapp/exo2.dart';
-import 'package:bootcamp1/firstapp/exo4.dart';
-import 'package:bootcamp1/firstapp/exo5.dart';
-import 'package:bootcamp1/firstapp/exo6.dart';
-import 'package:bootcamp1/firstapp/exo7.dart';
-import 'package:bootcamp1/firstapp/exo8.dart';
+import 'all_exos.dart';
 import 'package:flutter/material.dart';
 
-class MyApp10 extends StatelessWidget {
-  const MyApp10 ({super.key});
+class MyApp10 extends StatefulWidget {
+  const MyApp10({super.key});
 
+  @override
+  State<MyApp10> createState() => _MyApp10State();
+}
+
+class _MyApp10State extends State<MyApp10> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,9 +20,9 @@ class MyApp10 extends StatelessWidget {
           backgroundColor: Color(0xFF121212),
           elevation: 0,
         ),
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green).copyWith(
-          secondary: const Color(0xFF1DB954),
-        ),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.green,
+        ).copyWith(secondary: const Color(0xFF1DB954)),
       ),
       home: const MusicPlayerScreen(),
     );
@@ -35,6 +33,10 @@ class MusicPlayerScreen extends StatelessWidget {
   const MusicPlayerScreen({super.key});
 
   Widget _buildCardSuggestion(BuildContext context, String title, Color color) {
+    void changeIcon(icon) {
+      icon = Icons.favorite;
+    }
+
     return Container(
       width: 150,
       height: 180,
@@ -52,10 +54,7 @@ class MusicPlayerScreen extends StatelessWidget {
             const Spacer(),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -66,7 +65,11 @@ class MusicPlayerScreen extends StatelessWidget {
   }
 
   Widget _buildListItem(
-      String title, String subtitle, IconData icon, Color iconColor) {
+    String title,
+    String subtitle,
+    IconData icon,
+    Color iconColor,
+  ) {
     return ListTile(
       leading: Container(
         width: 50,
@@ -77,10 +80,7 @@ class MusicPlayerScreen extends StatelessWidget {
         ),
         child: Icon(icon, color: iconColor, size: 30),
       ),
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(subtitle),
       trailing: const Icon(Icons.more_vert, color: Colors.white70),
       onTap: () {},
@@ -94,71 +94,108 @@ class MusicPlayerScreen extends StatelessWidget {
         backgroundColor: Colors.blue.shade100,
         child: ListView(
           children: [
-            DrawerHeader(child: Icon(Icons.account_circle,size: 100,)),
+            DrawerHeader(child: Icon(Icons.account_circle, size: 100)),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const FirstApp()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FirstApp()),
+                );
               },
             ),
             ListTile(
               leading: Icon(Icons.music_note_sharp),
               title: Text('Music'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp10()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp10()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.pages),
               title: Text('Pages'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> Final()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Final()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.person_outline_outlined),
               title: Text('Simple profile'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp2()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('Profile advance'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp2()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp2()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.add),
               title: Text('Counter'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp4()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp4()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.book),
               title: Text('Proverbs'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp5()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp5()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.person),
               title: Text('Contacts'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp6()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp6()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.cloud),
               title: Text('Meteo'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp7()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp7()),
+                );
               },
-            ),ListTile(
+            ),
+            ListTile(
               leading: Icon(Icons.cabin),
               title: Text('Cases'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> MyApp8()));
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp8()),
+                );
               },
             ),
           ],
-
         ),
       ),
       body: CustomScrollView(
@@ -172,7 +209,10 @@ class MusicPlayerScreen extends StatelessWidget {
               centerTitle: true,
               title: const Text(
                 'Accueil',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               background: Container(
                 decoration: BoxDecoration(
@@ -191,9 +231,10 @@ class MusicPlayerScreen extends StatelessWidget {
                       const Text(
                         'Bonjour',
                         style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       // Petite section de cartes
@@ -202,8 +243,16 @@ class MusicPlayerScreen extends StatelessWidget {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            _buildCardSuggestion(context, 'Récemment joué', Colors.grey.shade700),
-                            _buildCardSuggestion(context, 'Découvertes', Colors.grey.shade700),
+                            _buildCardSuggestion(
+                              context,
+                              'Récemment joué',
+                              Colors.grey.shade700,
+                            ),
+                            _buildCardSuggestion(
+                              context,
+                              'Découvertes',
+                              Colors.grey.shade700,
+                            ),
                           ],
                         ),
                       ),
@@ -214,22 +263,40 @@ class MusicPlayerScreen extends StatelessWidget {
             ),
           ),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'Listes de lecture populaires',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+            delegate: SliverChildListDelegate([
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Listes de lecture populaires',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                _buildListItem('Titre de Chanson 1', 'Artiste X', Icons.radio, Colors.orange),
-                _buildListItem('Podcast du Jour', 'Podcast Studio', Icons.mic, Colors.blue),
-                _buildListItem('Chanson Relaxante', 'Ambiance Z', Icons.spa, Colors.purple),
-                _buildListItem('Le Hit du Moment', 'Artiste Y', Icons.whatshot, Colors.red),
-                const SizedBox(height: 100),
-              ],
-            ),
+              ),
+              _buildListItem(
+                'Titre de Chanson 1',
+                'Artiste X',
+                Icons.radio,
+                Colors.orange,
+              ),
+              _buildListItem(
+                'Podcast du Jour',
+                'Podcast Studio',
+                Icons.mic,
+                Colors.blue,
+              ),
+              _buildListItem(
+                'Chanson Relaxante',
+                'Ambiance Z',
+                Icons.spa,
+                Colors.purple,
+              ),
+              _buildListItem(
+                'Le Hit du Moment',
+                'Artiste Y',
+                Icons.whatshot,
+                Colors.red,
+              ),
+              const SizedBox(height: 100),
+            ]),
           ),
         ],
       ),
@@ -239,18 +306,32 @@ class MusicPlayerScreen extends StatelessWidget {
         color: Colors.grey.shade900,
         child: ListTile(
           leading: const Icon(Icons.album, color: Colors.white),
-          title: const Text('Now Playing', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-          subtitle: const Text('Artiste Cool', style: TextStyle(color: Colors.white70)),
+          title: const Text(
+            'Now Playing',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          subtitle: const Text(
+            'Artiste Cool',
+            style: TextStyle(color: Colors.white70),
+          ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
                 icon: const Icon(Icons.favorite_border, color: Colors.white),
-                onPressed: () {},
+                onPressed: () {
+                  Icon(Icons.favorite, color: Colors.red);
+                },
               ),
               IconButton(
-                icon: const Icon(Icons.play_arrow, color: Color(0xFF1DB954), size: 35),
-                onPressed: () {},
+                icon: const Icon(
+                  Icons.play_arrow,
+                  color: Color(0xFF1DB954),
+                  size: 35,
+                ),
+                onPressed: () {
+                  Icon(Icons.pause);
+                },
               ),
             ],
           ),
