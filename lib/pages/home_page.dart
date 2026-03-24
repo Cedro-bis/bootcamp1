@@ -108,60 +108,22 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => ContactPageAdvanced(),
                             ),
                           ),
-                          child: Container(
-                            padding: EdgeInsets.all(12),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.blue.shade200,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              spacing: 12,
-                              children: [
-                                Container(
-                                  width: 30,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Icon(Icons.group_outlined),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [Text("Contact"), Text("248")],
-                                ),
-                              ],
-                            ),
+                          child: _myContainers(
+                            Icons.group_outlined,
+                            Colors.blue.shade200,
+                            Colors.blue,
+                            'Contacts',
+                            '248',
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(12),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.orange.shade200,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            spacing: 12,
-                            children: [
-                              Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: Colors.orange,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Icon(Icons.music_note_outlined),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [Text("Playlist"), Text("32")],
-                              ),
-                            ],
-                          ),
+                        child: _myContainers(
+                          Icons.music_note_outlined,
+                          Colors.orange.shade200,
+                          Colors.orange,
+                          'Playlist',
+                          '32',
                         ),
                       ),
                     ],
@@ -224,98 +186,26 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       spacing: 12,
                       children: [
-                        Row(
-                          spacing: 8,
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.purple.shade100,
-                              ),
-                              child: Icon(
-                                Icons.music_note_outlined,
-                                size: 16,
-                                color: Colors.purple,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Listened to Sptify'),
-                                Text(
-                                  "2 hours ago",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        _lastCard(
+                          activityIcons[1],
+                          activityTitles[1],
+                          activitySubTitles[1],
+                          activityColors[1].shade100,
+                          activityColors[1],
                         ),
-                        Row(
-                          spacing: 8,
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.green.shade100,
-                              ),
-                              child: Icon(
-                                Icons.group_outlined,
-                                size: 16,
-                                color: Colors.green,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Added 3 new contacts'),
-                                Text(
-                                  "5 hours ago",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        _lastCard(
+                          activityIcons[2],
+                          activityTitles[2],
+                          activitySubTitles[2],
+                          activityColors[2].shade100,
+                          activityColors[2],
                         ),
-                        Row(
-                          spacing: 8,
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.blue.shade100,
-                              ),
-                              child: Icon(
-                                Icons.notifications_outlined,
-                                size: 16,
-                                color: Colors.blue,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('5 new notifications'),
-                                Text(
-                                  "1 day ago",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        _lastCard(
+                          activityIcons[3],
+                          activityTitles[3],
+                          activitySubTitles[3],
+                          activityColors[3].shade100,
+                          activityColors[3],
                         ),
                       ],
                     ),
@@ -325,6 +215,59 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _lastCard(icon, text1, text2, color1, color2) {
+    return Row(
+      spacing: 8,
+      children: [
+        Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: color2,
+          ),
+          child: Icon(icon, size: 16, color: color1),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(text1),
+            Text(text2, style: TextStyle(fontSize: 10, color: Colors.grey)),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _myContainers(icon, colors1, colors2, texte1, texte2) {
+    return Container(
+      padding: EdgeInsets.all(12),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: colors1,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        spacing: 12,
+        children: [
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: colors2,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Icon(icon),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text(texte1), Text(texte2)],
+          ),
+        ],
       ),
     );
   }

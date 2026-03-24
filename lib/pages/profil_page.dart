@@ -63,153 +63,40 @@ class ProfilPage extends StatelessWidget {
                 child: Column(
                   spacing: 12,
                   children: [
-                    Row(
-                      spacing: 12,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.green.shade100,
-                            borderRadius: BorderRadiusGeometry.circular(8),
-                          ),
-                          child: Icon(Icons.person, color: Colors.green),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Edit your profile',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              'Update your informations',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _containerView(
+                      Icons.person_outline,
+                      Colors.green.shade100,
+                      Colors.green,
+                      'Edit your profil',
+                      'Update your information',
                     ),
-                    Row(
-                      spacing: 12,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.purpleAccent.shade100,
-                            borderRadius: BorderRadiusGeometry.circular(8),
-                          ),
-                          child: Icon(
-                            Icons.settings,
-                            color: Colors.purpleAccent,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Account settings',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              'Manage your account',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _containerView(
+                      Icons.settings_outlined,
+                      Colors.purple.shade100,
+                      Colors.purple,
+                      'Account settings',
+                      'Manage your account',
                     ),
-                    Row(
-                      spacing: 12,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade100,
-                            borderRadius: BorderRadiusGeometry.circular(8),
-                          ),
-                          child: Icon(Icons.notifications, color: Colors.blue),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Notification',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              'Configure alerts',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _containerView(
+                      Icons.notifications_outlined,
+                      Colors.blue.shade100,
+                      Colors.blue,
+                      'Notifications',
+                      'Configure alerts',
                     ),
-                    Row(
-                      spacing: 12,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.orange.shade100,
-                            borderRadius: BorderRadiusGeometry.circular(8),
-                          ),
-                          child: Icon(Icons.lock, color: Colors.orange),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Privacy & security',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              'Control your privacy',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _containerView(
+                      Icons.lock_outline,
+                      Colors.orange.shade100,
+                      Colors.orange,
+                      'Privacy & security',
+                      'Control your privacy',
                     ),
-                    Row(
-                      spacing: 12,
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 220, 224, 220),
-                            borderRadius: BorderRadiusGeometry.circular(8),
-                          ),
-                          child: Icon(Icons.question_mark, color: Colors.grey),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              'Help & support',
-                              style: TextStyle(fontSize: 18),
-                            ),
-                            Text(
-                              'Get assistance',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                    _containerView(
+                      Icons.question_mark_outlined,
+                      Colors.grey.shade300,
+                      Colors.grey,
+                      'Help & support',
+                      'Get assistance',
                     ),
                   ],
                 ),
@@ -218,6 +105,30 @@ class ProfilPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _containerView(icons, colors1, colors2, text1, text2) {
+    return Row(
+      spacing: 12,
+      children: [
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: colors1,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icons, color: colors2),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(text1, style: TextStyle(fontSize: 18)),
+            Text(text2, style: TextStyle(fontSize: 12, color: Colors.grey)),
+          ],
+        ),
+      ],
     );
   }
 }
